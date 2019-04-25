@@ -3,12 +3,14 @@
 S-mart - это мобильное приложение  для платформы Android, предназначенное для поиска товаров в различных Интернет-магазинах.
 
 ## Ссылки
-Trello Board: [link](https://trello.com/b/axC43PUO/s-mart)
+Trello: [link](https://trello.com/b/axC43PUO/s-mart)
 
-Miro RealTime board: [link](https://realtimeboard.com/app/board/o9J_kxgTYOc=/)
+RealTimeBoard: [link](https://realtimeboard.com/app/board/o9J_kxgTYOc=/)
 
 Документация:
 
 1. [Введение](./docs/Введение%20к%20курсовому%20проекту.docx)
 
 2. [Техническое задание](./docs/ТЗ.docx)
+
+3. [Отчёт о проделанной работе](./docs/Отчёт%20о%20проделанной%20работе.docx)
