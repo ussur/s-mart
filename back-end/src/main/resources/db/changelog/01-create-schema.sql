@@ -7,6 +7,7 @@ create table users (
 
 create table filters (
     id bigint primary key default nextval('id_sequence'),
+    user_id bigint references users(id) not null,
     category varchar(40) not null,
     hint varchar(150),
     min_price int,
@@ -24,15 +25,17 @@ create table notifications (
     id bigint primary key default nextval('id_sequence'),
     preferences_id bigint references preferences(id) unique not null,
     filters_id bigint references filters(id) not null,
-    frequency interval not null default '1 day'
+    frequency bigint not null default 86400000
 );
 
 create table favourites (
     id bigint primary key default nextval('id_sequence'),
+    user_id bigint references users(id) not null,
     store varchar(20) not null,
     product_id varchar(100) not null,
     product_name varchar(150) not null,
-    min_price int not null,
-    max_price int not null,
+    category varchar(40),
+    price int,
+    rating smallint,
     image_url text
 );
