@@ -9,7 +9,7 @@ RealTimeBoard: [link](https://realtimeboard.com/app/board/o9J_kxgTYOc=/)
 
 Документация:
 
-1. [Курсовой проект](./docs/Курсовая%20работа.docx)
+1. [Курсовой проект](./docs/Курсовой%20проект.docx)
 
 2. [Техническое задание](./docs/ТЗ.docx)
 
