@@ -9,8 +9,8 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.vsu.cs.smart.model.User;
-import ru.vsu.cs.smart.persistence.UserRepository;
+import ru.vsu.cs.smart.db.model.User;
+import ru.vsu.cs.smart.db.repository.UserRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
