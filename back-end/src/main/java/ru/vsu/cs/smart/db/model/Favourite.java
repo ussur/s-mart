@@ -20,8 +20,10 @@ public class Favourite {
     private Long id;
     @Column
     private String store;
-    @Column(name="product_id")
-    private String productId;
+    @Column(name="product_url")
+    private String productUrl;
+    @Column(name="image_url")
+    private String imageUrl;
     @Column(name="product_name")
     private String productName;
     @Column

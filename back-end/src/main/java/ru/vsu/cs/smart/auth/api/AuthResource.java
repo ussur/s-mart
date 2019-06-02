@@ -15,7 +15,7 @@ import ru.vsu.cs.smart.db.service.UserService;
 import java.util.Objects;
 import java.util.Optional;
 
-@RestController("/auth")
+@RestController
 public class AuthResource {
     private final UserService userService;
 
@@ -24,12 +24,12 @@ public class AuthResource {
         this.userService = userService;
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     @ResponseStatus(HttpStatus.OK)
     public User login(@RequestBody Credentials credentials) throws ResourceNotFoundException {
         Preconditions.checkNotNull(credentials);
-        Optional<User> user = new Optional<>(
-                userService.findByEmail(credentials.getEmail()));
+        Optional<User> user = Optional.ofNullable(
+                userService.findByUsername(credentials.getUsername()));
         if (!user.isPresent() || !Objects.equals(user.get().getPassword(),
                 credentials.getPassword())) {
             throw new ResourceNotFoundException();
@@ -37,18 +37,18 @@ public class AuthResource {
         return user.get();
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/auth/logout")
     @ResponseStatus(HttpStatus.OK)
     public void logout(@RequestBody User user) {
 
     }
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     @ResponseStatus(HttpStatus.OK)
     public User register(@RequestBody Credentials credentials) {
         Preconditions.checkNotNull(credentials);
         User user = new User();
-        user.setEmail(credentials.getEmail());
+        user.setUsername(credentials.getUsername());
         user.setPassword(credentials.getPassword());
         return userService.save(user);
     }

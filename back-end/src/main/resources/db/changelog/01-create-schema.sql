@@ -2,7 +2,7 @@ create sequence id_sequence;
 
 create table users (
     id bigint primary key default nextval('id_sequence'),
-    email varchar(80) unique not null,
+    username varchar(256) unique not null,
     password varchar(20) not null
 );
 
@@ -20,7 +20,7 @@ create table favourites (
     id bigint primary key default nextval('id_sequence'),
     user_id bigint references users(id) not null,
     store varchar(20) not null,
-    product_id varchar(100) not null,
+    product_url text not null,
     product_name varchar(150) not null,
     category varchar(40),
     price int,

@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.vsu.cs.smart.db.model.User;
 import ru.vsu.cs.smart.db.repository.UserRepository;
+import ru.vsu.cs.smart.db.service.UserService;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -32,17 +34,17 @@ public class UserServiceTest {
     @Before
     public void setUp() {
         User alice = new User();
-        alice.setEmail("alice@mail.com");
+        alice.setUsername("alice@mail.com");
 
-        Mockito.when(userRepository.findByEmail(alice.getEmail()))
+        Mockito.when(userRepository.findByUsername(alice.getUsername()))
                 .thenReturn(alice);
     }
 
     @Test
-    public void testGetByEmail() {
-        String email = "alice@mail.com";
-        User found = userService.getByEmail(email);
+    public void testGetByUsername() {
+        String username = "alice@mail.com";
+        User found = userService.findByUsername(username);
 
-        assertThat(found.getEmail()).isEqualTo(email);
+        assertThat(found.getUsername()).isEqualTo(username);
     }
 }

@@ -20,13 +20,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
     private Long id;
     @Column
-    private String email;
+    private String username;
     @Column
     private String password;
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Set<Filters> savedFilters;
     @JsonIgnore
-    @OneToMany(mappedBy = "favourites")
+    @OneToMany(mappedBy = "user")
     private Set<Favourite> favourites;
 }
