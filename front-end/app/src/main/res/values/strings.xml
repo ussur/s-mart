@@ -1,7 +1,16 @@
 <resources>
     <string name="app_name">s-mart</string>
     <string name="title_home">Главная</string>
-    <string name="title_search">Расширенный поиск</string>
-    <string name="title_favotites">Избранное</string>
+    <string name="title_filters">Сохраненные фильтры</string>
+    <string name="title_favorites">Избранное</string>
     <string name="title_profile">Профиль</string>
+    <string name="price">Цена:</string>
+    <string name="textFrom">От:</string>
+    <string name="textBefore">До:</string>
+    <string name="category">Категория:</string>
+    <string name="rating">Рейтинг:</string>
+    <string name="text">Поиск товаров</string>
+    <string name="search_hint">Search the records</string>
+    <string name="search">Искать</string>
+
 </resources>

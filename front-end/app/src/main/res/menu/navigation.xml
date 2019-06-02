@@ -7,15 +7,15 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_search"
-        android:icon="@drawable/ic_search"
-        android:title="@string/title_search" />
+        android:id="@+id/navigation_filters"
+        android:icon="@drawable/ic_save_filters"
+        android:title="@string/title_filters" />
 
 
     <item
         android:id="@+id/navigation_favorites"
         android:icon="@drawable/ic_favorites"
-        android:title="@string/title_favotites" />
+        android:title="@string/title_favorites" />
 
     <item
         android:id="@+id/navigation_profile"
