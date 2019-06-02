@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.vsu.cs.smart.db.model.Filters;
 import ru.vsu.cs.smart.externalapi.service.CustomStoreService;
 import ru.vsu.cs.smart.processing.Item;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@ApiIgnore
 @RestController
 public class CustomStoreResource implements IStoreResource {
     private final CustomStoreService customStoreService;
