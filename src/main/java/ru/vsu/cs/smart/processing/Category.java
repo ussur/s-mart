@@ -1,5 +1,8 @@
 package ru.vsu.cs.smart.processing;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public enum Category {
     CLOTHING ("clothing"),
     BOOKS ("books"),
@@ -8,7 +11,8 @@ public enum Category {
     PHONES ("phones"),
     HOUSE ("house"),
     KIDS ("kids"),
-    ACCESSORIES ("accessories");
+    ACCESSORIES ("accessories"),
+    ELECTRONICS ("electronics");
 
     private final String name;
 
@@ -20,5 +24,13 @@ public enum Category {
         if (str == null)
             return false;
         return name.toLowerCase().equals(str.toLowerCase());
+    }
+
+    public static Set<String> asStringSet() {
+        Set<String> strings = new HashSet<>();
+        for (Category c : values()) {
+            strings.add(c.name);
+        }
+        return strings;
     }
 }
