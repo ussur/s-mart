@@ -28,60 +28,73 @@ public class SwaggerConfiguration {
                         newArrayList(
                                 new ResponseMessageBuilder().code(500)
                                         .message("Internal Server Error")
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(403)
                                         .message("Access Denied")
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(401)
                                         .message("Unauthorized")
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(404)
                                         .message("Resource Not Found")
+                                        .responseModel(new ModelRef("string"))
                                         .build()))
                 .globalResponseMessage(RequestMethod.POST,
                         newArrayList(
                                 new ResponseMessageBuilder().code(500)
                                         .message("Internal Server Error")
-                                        .responseModel(new ModelRef("Error"))
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(403)
                                         .message("Access Denied")
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(401)
                                         .message("Unauthorized")
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(404)
                                         .message("Resource Not Found")
+                                        .responseModel(new ModelRef("string"))
                                         .build()))
                 .globalResponseMessage(RequestMethod.PUT,
                         newArrayList(
                                 new ResponseMessageBuilder().code(500)
                                         .message("Internal Server Error")
-                                        .responseModel(new ModelRef("Error"))
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(403)
                                         .message("Access Denied")
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(401)
                                         .message("Unauthorized")
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(404)
                                         .message("Resource Not Found")
+                                        .responseModel(new ModelRef("string"))
                                         .build()))
                 .globalResponseMessage(RequestMethod.DELETE,
                         newArrayList(
                                 new ResponseMessageBuilder().code(500)
                                         .message("Internal Server Error")
-                                        .responseModel(new ModelRef("Error"))
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(403)
                                         .message("Access Denied")
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(401)
                                         .message("Unauthorized")
+                                        .responseModel(new ModelRef("string"))
                                         .build(),
                                 new ResponseMessageBuilder().code(404)
                                         .message("Resource Not Found")
+                                        .responseModel(new ModelRef("string"))
                                         .build()))
                 .select()
                 .apis(Predicates.not(
