@@ -8,20 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SearchFragment extends Fragment{
+public class FavoritesAddFragment extends Fragment{
 
-   public SearchFragment() {
+    public FavoritesAddFragment() {
     }
 
-    public static SearchFragment newInstance() {
-        return new SearchFragment();
+    public static FavoritesAddFragment newInstance() {
+        return new FavoritesAddFragment();
     }
 
     private RecyclerView mRecyclerView;
@@ -39,15 +36,15 @@ public class SearchFragment extends Fragment{
         mRecyclerView.setLayoutManager(layoutManager);
 
         ArrayList dataSearch = new ArrayList<DataSearch>();
-        for (int i = 0; i <DataSearchInformation.id.length; i++)
+        for (int i = 0; i <Iphone.id.length; i++)
         {
             dataSearch.add(
                     new DataSearch
                             (
-                                    DataSearchInformation.nameArray[i],
-                                    DataSearchInformation.priceArray[i],
-                                    DataSearchInformation.categoryArray[i],
-                                    DataSearchInformation.ratingArray[i]
+                                    Iphone.nameArray[i],
+                                    Iphone.priceArray[i],
+                                    Iphone.categoryArray[i],
+                                    Iphone.ratingArray[i]
                             ));
         }
         mListAdapter = new ListAdapter(dataSearch);
@@ -85,7 +82,7 @@ public class SearchFragment extends Fragment{
         public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_search, parent, false);
-            ViewHolder viewHolder = new ViewHolder(view);
+            ListAdapter.ViewHolder viewHolder = new ListAdapter.ViewHolder(view);
             return viewHolder;
         }
 
@@ -97,17 +94,6 @@ public class SearchFragment extends Fragment{
             holder.textViewCategory.setText(dataList.get(position).getCategory());
             holder.textViewRating.setText(dataList.get(position).getRating());
 
-            holder.itemView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    Fragment fragment = new ProductFragment();
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fl_content, fragment);
-                    transaction.commit();
-                }
-            });
         }
 
         @Override

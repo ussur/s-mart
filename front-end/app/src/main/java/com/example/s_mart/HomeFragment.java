@@ -23,6 +23,7 @@ public class HomeFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Button search = (Button) view.findViewById(R.id.search);
         Button apply = (Button) view.findViewById(R.id.apply);
+        Button bFilters = (Button) view.findViewById(R.id.bFilters);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +38,17 @@ public class HomeFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Fragment fragment = new ApplyFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fl_content, fragment);
+                transaction.commit();
+            }
+
+        });
+
+        bFilters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new SaveFiltersFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fl_content, fragment);
                 transaction.commit();

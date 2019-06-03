@@ -2,26 +2,22 @@ package com.example.s_mart;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SearchFragment extends Fragment{
+public class FiltersAddFragment extends Fragment {
 
-   public SearchFragment() {
+    public FiltersAddFragment() {
     }
 
-    public static SearchFragment newInstance() {
-        return new SearchFragment();
+    public static FiltersAddFragment newInstance() {
+        return new FiltersAddFragment();
     }
 
     private RecyclerView mRecyclerView;
@@ -38,16 +34,15 @@ public class SearchFragment extends Fragment{
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        ArrayList dataSearch = new ArrayList<DataSearch>();
-        for (int i = 0; i <DataSearchInformation.id.length; i++)
+        ArrayList dataSearch = new ArrayList<DataSearchFilters>();
+        for (int i = 0; i <Filters.id.length; i++)
         {
             dataSearch.add(
-                    new DataSearch
+                    new DataSearchFilters
                             (
-                                    DataSearchInformation.nameArray[i],
-                                    DataSearchInformation.priceArray[i],
-                                    DataSearchInformation.categoryArray[i],
-                                    DataSearchInformation.ratingArray[i]
+                                    Filters.nameArray[i],
+                                    Filters.categoryArray[i],
+                                    Filters.ratingArray[i]
                             ));
         }
         mListAdapter = new ListAdapter(dataSearch);
@@ -57,9 +52,9 @@ public class SearchFragment extends Fragment{
 
     public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-        private ArrayList<DataSearch> dataList;
+        private ArrayList<DataSearchFilters> dataList;
 
-        public ListAdapter(ArrayList<DataSearch> dataSearch)
+        public ListAdapter(ArrayList<DataSearchFilters> dataSearch)
         {
             this.dataList = dataSearch;
         }
@@ -67,7 +62,6 @@ public class SearchFragment extends Fragment{
         public class ViewHolder extends RecyclerView.ViewHolder
         {
             TextView textViewName;
-            TextView textViewPrice;
             TextView textViewCategory;
             TextView textViewRating;
 
@@ -75,7 +69,6 @@ public class SearchFragment extends Fragment{
             {
                 super(itemView);
                 this.textViewName = (TextView) itemView.findViewById(R.id.name);
-                this.textViewPrice = (TextView) itemView.findViewById(R.id.price);
                 this.textViewCategory = (TextView) itemView.findViewById(R.id.category);
                 this.textViewRating = (TextView) itemView.findViewById(R.id.rating);
             }
@@ -85,7 +78,7 @@ public class SearchFragment extends Fragment{
         public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_search, parent, false);
-            ViewHolder viewHolder = new ViewHolder(view);
+            ListAdapter.ViewHolder viewHolder = new ListAdapter.ViewHolder(view);
             return viewHolder;
         }
 
@@ -93,21 +86,9 @@ public class SearchFragment extends Fragment{
         public void onBindViewHolder(ListAdapter.ViewHolder holder, final int position)
         {
             holder.textViewName.setText(dataList.get(position).getName());
-            holder.textViewPrice.setText(dataList.get(position).getPrice());
             holder.textViewCategory.setText(dataList.get(position).getCategory());
             holder.textViewRating.setText(dataList.get(position).getRating());
 
-            holder.itemView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    Fragment fragment = new ProductFragment();
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fl_content, fragment);
-                    transaction.commit();
-                }
-            });
         }
 
         @Override
