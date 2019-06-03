@@ -12,5 +12,24 @@
     <string name="text">Поиск товаров</string>
     <string name="search_hint">Search the records</string>
     <string name="search">Искать</string>
+    <string-array name="categoryList">
+        <item>Электроника</item>
+        <item>Бытовая техника</item>
+        <item>Детские товары</item>
+        <item>Красота</item>
+        <item>Мужская одежда</item>
+        <item>Женская одежда</item>
+        <item>Компьютерная техника</item>
+        <item>Ремонт и отделка</item>
+        <item>Аксессуары</item>
+        <item>Канцелярские товары</item>
+        <item>Дом и сад</item>
+        <item>Смарфоны и связь</item>
+    </string-array>
+    <string-array name="ratingList">
+        <item>Высокий</item>
+        <item>Средний</item>
+        <item>Низкий</item>
+    </string-array>
 
 </resources>
