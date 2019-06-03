@@ -1,2 +1,2 @@
 # S-Mart
-S-mart deployment branch
+S-mart back-end branch
