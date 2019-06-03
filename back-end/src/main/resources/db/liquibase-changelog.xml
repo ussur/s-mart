@@ -8,4 +8,9 @@
         <sqlFile path="changelog/01-create-schema.sql"
              relativeToChangelogFile="true" stripComments="true" splitStatements="false"/>
     </changeSet>
+
+    <changeSet id="2" author="ussur">
+        <sqlFile path="changelog/02-oauth-tokens.sql"
+                 relativeToChangelogFile="true" stripComments="true" splitStatements="false"/>
+    </changeSet>
 </databaseChangeLog>
