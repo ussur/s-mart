@@ -1,4 +1,4 @@
-create sequence id_sequence;
+create sequence id_sequence start 1 increment by 1;
 
 create table users (
     id bigint primary key default nextval('id_sequence'),

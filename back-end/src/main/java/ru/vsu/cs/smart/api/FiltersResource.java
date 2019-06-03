@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ru.vsu.cs.smart.api.responses.FiltersResponse;
+import ru.vsu.cs.smart.api.data.FiltersData;
 import ru.vsu.cs.smart.common.exception.ResourceNotFoundException;
 import ru.vsu.cs.smart.db.model.Filters;
+import ru.vsu.cs.smart.db.model.User;
 import ru.vsu.cs.smart.db.service.FiltersService;
+import ru.vsu.cs.smart.db.service.UserService;
+import ru.vsu.cs.smart.processing.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +35,12 @@ import java.util.List;
 @RequestMapping("/filters")
 public class FiltersResource {
     private final FiltersService filtersService;
+    private final UserService userService;
 
     @Autowired
-    public FiltersResource(FiltersService filtersService) {
+    public FiltersResource(FiltersService filtersService, UserService userService) {
         this.filtersService = filtersService;
+        this.userService = userService;
     }
 
     @ApiOperation(
@@ -48,12 +53,12 @@ public class FiltersResource {
     )
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<FiltersResponse> findByCurrentUser(@ApiParam(value = "ID пользователя", required = true)
+    public List<FiltersData> findByCurrentUser(@ApiParam(value = "ID пользователя", required = true)
                                                @PathVariable("userId") Long userId) {
         Preconditions.checkNotNull(userId);
-        List<FiltersResponse> response = new ArrayList<>();
+        List<FiltersData> response = new ArrayList<>();
         filtersService.findAllByCurrentUser(userId).forEach(
-                filters -> response.add(new FiltersResponse(filters))
+                filters -> response.add(new FiltersData(filters))
         );
         return response;
     }
@@ -62,15 +67,27 @@ public class FiltersResource {
             value = "Сохраняет фильтры",
             httpMethod = "POST",
             response = Filters.class,
-            notes = "Требуется в теле запроса указать существующего пользователя, например:\n" +
-            "{\"id\": \"1\", \"username\": \"alice\", \"password\": \"1\"}"
+            notes = "Требуется в теле запроса указать ID существующего пользователя, например: 1\n" +
+                    "При указании поля category, его значение должно быть в диапазоне" +
+                    " возможных категорий (см. /stores/categories)"
     )
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public Filters save(@ApiParam(value = "Фильтры для сохранения")
-                            @RequestBody Filters filters) {
-        Preconditions.checkNotNull(filters);
-        return filtersService.save(filters);
+    public Filters save(@ApiParam(value = "Фильтры для сохранения", required = true)
+                            @RequestBody FiltersData filtersData) {
+        Preconditions.checkNotNull(filtersData);
+        Preconditions.checkNotNull(filtersData.getUserId(), "User ID must be specified");
+        Preconditions.checkArgument(
+                filtersData.getCategory() == null
+                        || Category.asStringSet().contains(filtersData.getCategory().toLowerCase()),
+                "Invalid category"
+        );
+        User user = userService.find(filtersData.getUserId());
+        Preconditions.checkArgument(
+                userService.existsById(filtersData.getUserId()),
+                "User with id '" + filtersData.getUserId() + "' not found"
+        );
+        return filtersService.save(filtersData.toFilters());
     }
 
     @ApiOperation(

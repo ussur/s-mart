@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ru.vsu.cs.smart.api.responses.FavouriteResponse;
+import ru.vsu.cs.smart.api.data.FavouriteData;
 import ru.vsu.cs.smart.common.exception.ResourceNotFoundException;
 import ru.vsu.cs.smart.db.model.Favourite;
 import ru.vsu.cs.smart.db.service.FavouriteService;
+import ru.vsu.cs.smart.db.service.UserService;
+import ru.vsu.cs.smart.processing.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +34,12 @@ import java.util.List;
 @RequestMapping("/favourites")
 public class FavouriteResource {
     private final FavouriteService favouriteService;
+    private final UserService userService;
 
     @Autowired
-    public FavouriteResource(FavouriteService favouriteService) {
+    public FavouriteResource(FavouriteService favouriteService, UserService userService) {
         this.favouriteService = favouriteService;
+        this.userService = userService;
     }
 
     @ApiOperation(
@@ -48,12 +52,12 @@ public class FavouriteResource {
     )
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<FavouriteResponse> findByCurrentUser(@ApiParam(value = "ID пользователя", required = true)
+    public List<FavouriteData> findByCurrentUser(@ApiParam(value = "ID пользователя", required = true)
                                                  @PathVariable("userId") Long userId) {
         Preconditions.checkNotNull(userId);
-        List<FavouriteResponse> response = new ArrayList<>();
+        List<FavouriteData> response = new ArrayList<>();
         favouriteService.findAllByCurrentUser(userId).forEach(
-                favourite -> response.add(new FavouriteResponse(favourite))
+                favourite -> response.add(new FavouriteData(favourite))
         );
         return response;
     }
@@ -62,15 +66,26 @@ public class FavouriteResource {
             value = "Сохраняет товар в закладки",
             httpMethod = "POST",
             response = Favourite.class,
-            notes = "Требуется в теле запроса указать существующего пользователя, например:\n" +
-                    "{\"id\": \"1\", \"username\": \"alice\", \"password\": \"1\"}"
+            notes = "Требуется в теле запроса указать ID существующего пользователя, например: 1\n" +
+                    "При указании поля category, его значение должно быть в диапазоне" +
+                    " возможных категорий (см. /stores/categories)"
     )
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public Favourite save(@ApiParam(value = "Товар для сохранения")
-                              @RequestBody Favourite favourite) {
-        Preconditions.checkNotNull(favourite);
-        return favouriteService.save(favourite);
+    public Favourite save(@ApiParam(value = "Товар для сохранения", required = true)
+                              @RequestBody FavouriteData favouriteData) {
+        Preconditions.checkNotNull(favouriteData);
+        Preconditions.checkNotNull(favouriteData.getUserId(), "User ID must be specified");
+        Preconditions.checkArgument(
+                favouriteData.getCategory() == null
+                        ||Category.asStringSet().contains(favouriteData.getCategory().toLowerCase()),
+                "Invalid category"
+        );
+        Preconditions.checkArgument(
+                userService.existsById(favouriteData.getUserId()),
+                "User with id '" + favouriteData.getUserId() + "' not found"
+        );
+        return favouriteService.save(favouriteData.toFavourite());
     }
 
     @ApiOperation(
