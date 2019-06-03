@@ -10,7 +10,7 @@ public class Item {
     private String productUrl;
     private String imageUrl;
     private String productName;
-    private String category;
+    private Category category;
     private Integer price;
     private Byte rating;
 }

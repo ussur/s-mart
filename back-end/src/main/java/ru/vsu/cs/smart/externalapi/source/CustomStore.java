@@ -2,6 +2,7 @@ package ru.vsu.cs.smart.externalapi.source;
 
 import lombok.EqualsAndHashCode;
 import org.springframework.stereotype.Component;
+import ru.vsu.cs.smart.processing.Category;
 import ru.vsu.cs.smart.processing.Item;
 
 import java.util.ArrayList;
@@ -16,42 +17,82 @@ public class CustomStore {
         items.add(new CustomItem(
                 null,
                 null,
-                "book 1",
-                "books",
-                500,
-                (byte) 4
-        ));
-        items.add(new CustomItem(
-                null,
-                null,
-                "scarf 1",
-                "clothing",
-                1200,
+                "The Pragmatic Programmer",
+                Category.BOOKS,
+                1300,
                 (byte) 5
         ));
         items.add(new CustomItem(
                 null,
                 null,
-                "book 2",
-                "books",
+                "Джинсы",
+                Category.CLOTHING,
+                2200,
+                (byte) 5
+        ));
+        items.add(new CustomItem(
+                null,
+                null,
+                "Java Concurrency in Practice",
+                Category.BOOKS,
                 700,
                 (byte) 5
         ));
         items.add(new CustomItem(
                 null,
                 null,
-                "book 3",
-                "books",
-                600,
+                "Design Patterns Elements of Reusable Object-Oriented Software",
+                Category.BOOKS,
+                800,
+                (byte) 5
+        ));
+        items.add(new CustomItem(
+                null,
+                null,
+                "Кардиган",
+                Category.CLOTHING,
+                1000,
+                (byte) 1
+        ));
+        items.add(new CustomItem(
+                null,
+                null,
+                "Бинокль BRADEX DE",
+                Category.KIDS,
+                327,
+                null
+        ));
+        items.add(new CustomItem(
+                null,
+                null,
+                "Конструктор LEGO Technic",
+                Category.KIDS,
+                950,
+                (byte) 4
+        ));
+        items.add(new CustomItem(
+                null,
+                null,
+                "HUAWEI Nova 2",
+                Category.PHONES,
+                33000,
+                (byte) 5
+        ));
+        items.add(new CustomItem(
+                null,
+                null,
+                "Apple iPhone 7",
+                Category.PHONES,
+                35990,
                 (byte) 3
         ));
         items.add(new CustomItem(
                 null,
                 null,
-                "blouse 1",
-                "clothing",
-                1000,
-                (byte) 1
+                "Samsung Galaxy S10 8",
+                Category.PHONES,
+                48315,
+                (byte) 4
         ));
     }
 
@@ -64,7 +105,7 @@ public class CustomStore {
         CustomItem(String productUrl,
                    String imageUrl,
                    String productName,
-                   String category,
+                   Category category,
                    Integer price,
                    Byte rating) {
             super("Custom Store", productUrl, imageUrl, productName, category, price, rating);
