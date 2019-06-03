@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment{
         bFilters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new SaveFiltersFragment();
+                Fragment fragment = new FiltersAddFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fl_content, fragment);
                 transaction.commit();

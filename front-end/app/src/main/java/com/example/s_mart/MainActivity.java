@@ -47,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
                    loadFragment(HomeFragment.newInstance());
                    return true;
                case R.id.navigation_filters:
-                   loadFragment(SaveFiltersFragment.newInstance());
+                   loadFragment(FiltersAddFragment.newInstance());
                    return true;
                case R.id.navigation_favorites:
-                   loadFragment(FavoritesFragment.newInstance());
+                   loadFragment(FavoritesAddFragment.newInstance());
                    return true;
                case R.id.navigation_profile:
                    loadFragment(ProfileFragment.newInstance());

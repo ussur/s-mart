@@ -25,7 +25,7 @@ public class ProductFragment extends Fragment {
         buttonFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new FavoritesFragment();
+                Fragment fragment = new FavoritesAddFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fl_content, fragment);
                 transaction.commit();
