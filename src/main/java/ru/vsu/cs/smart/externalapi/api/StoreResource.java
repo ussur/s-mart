@@ -4,15 +4,18 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.vsu.cs.smart.db.model.Filters;
+import ru.vsu.cs.smart.processing.Category;
 import ru.vsu.cs.smart.processing.Item;
 import ru.vsu.cs.smart.processing.ItemAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Api(
@@ -49,5 +52,16 @@ public class StoreResource implements IStoreResource {
                 customStoreResource.findItems(filters))
         );
         return itemConverter.compose(items);
+    }
+
+    @GetMapping("/categories")
+    @ApiOperation(
+            value = "Возвращает список доступных категорий товаров",
+            httpMethod = "GET",
+            response = Category.class,
+            responseContainer = "List"
+    )
+    public List<Category> getCategories() {
+        return Arrays.asList(Category.values());
     }
 }

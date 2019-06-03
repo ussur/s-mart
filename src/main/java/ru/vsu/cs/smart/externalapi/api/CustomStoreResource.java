@@ -11,7 +11,6 @@ import ru.vsu.cs.smart.processing.Item;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @ApiIgnore
@@ -32,7 +31,7 @@ public class CustomStoreResource implements IStoreResource {
         Preconditions.checkNotNull(filters.getCategory());
         final String hint = filters.getHint();
         return customStoreService.findItems(filters).stream().filter(
-            item -> Objects.equals(item.getCategory(), filters.getCategory())
+            item -> item.getCategory().isEqualTo(filters.getCategory())
                 && (hint == null || item.getProductName().toLowerCase().contains(hint.toLowerCase()))
                 && (filters.getMaxPrice()== null || filters.getMaxPrice() >= item.getPrice())
                 && (filters.getMinPrice()== null || filters.getMinPrice() <= item.getPrice())

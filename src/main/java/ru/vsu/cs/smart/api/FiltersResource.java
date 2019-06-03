@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import ru.vsu.cs.smart.api.responses.FiltersResponse;
+import ru.vsu.cs.smart.common.exception.ResourceNotFoundException;
 import ru.vsu.cs.smart.db.model.Filters;
 import ru.vsu.cs.smart.db.service.FiltersService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Api(
@@ -40,14 +43,19 @@ public class FiltersResource {
             httpMethod = "GET",
             response = Filters.class,
             responseContainer = "List",
-            notes = "Требуется указать существующий ID пользователя, например: 1"
+            notes = "Требуется указать существующий ID пользователя, например: 1\n" +
+                    "В случае указания несуществующего ID пользователя, вернёт пустой массив."
     )
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Filters> findByCurrentUser(@ApiParam(value = "ID пользователя", required = true)
+    public List<FiltersResponse> findByCurrentUser(@ApiParam(value = "ID пользователя", required = true)
                                                @PathVariable("userId") Long userId) {
         Preconditions.checkNotNull(userId);
-        return filtersService.findAllByCurrentUser(userId);
+        List<FiltersResponse> response = new ArrayList<>();
+        filtersService.findAllByCurrentUser(userId).forEach(
+                filters -> response.add(new FiltersResponse(filters))
+        );
+        return response;
     }
 
     @ApiOperation(
@@ -71,9 +79,13 @@ public class FiltersResource {
     )
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void save(@ApiParam(value = "ID сохранённыч фильтров", required = true)
-                         @PathVariable("id") Long id) {
+    public void delete(@ApiParam(value = "ID сохранённыч фильтров", required = true)
+                         @PathVariable("id") Long id) throws ResourceNotFoundException {
         Preconditions.checkNotNull(id);
-        filtersService.delete(id);
+        try {
+            filtersService.delete(id);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Filters not found");
+        }
     }
 }

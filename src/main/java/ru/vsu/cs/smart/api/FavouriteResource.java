@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import ru.vsu.cs.smart.api.responses.FavouriteResponse;
+import ru.vsu.cs.smart.common.exception.ResourceNotFoundException;
 import ru.vsu.cs.smart.db.model.Favourite;
 import ru.vsu.cs.smart.db.service.FavouriteService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Api(
@@ -40,14 +43,19 @@ public class FavouriteResource {
             httpMethod = "GET",
             response = Favourite.class,
             responseContainer = "List",
-            notes = "Требуется указать существующий ID пользователя, например: 1"
+            notes = "Требуется указать существующий ID пользователя, например: 1\n" +
+                    "В случае указания несуществующего ID пользователя, вернёт пустой массив."
     )
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Favourite> findByCurrentUser(@ApiParam(value = "ID пользователя", required = true)
+    public List<FavouriteResponse> findByCurrentUser(@ApiParam(value = "ID пользователя", required = true)
                                                  @PathVariable("userId") Long userId) {
         Preconditions.checkNotNull(userId);
-        return favouriteService.findAllByCurrentUser(userId);
+        List<FavouriteResponse> response = new ArrayList<>();
+        favouriteService.findAllByCurrentUser(userId).forEach(
+                favourite -> response.add(new FavouriteResponse(favourite))
+        );
+        return response;
     }
 
     @ApiOperation(
@@ -74,6 +82,10 @@ public class FavouriteResource {
     public void save(@ApiParam(value = "ID сохранённого товара", required = true)
                          @PathVariable("id") Long id) {
         Preconditions.checkNotNull(id);
-        favouriteService.delete(id);
+        try {
+            favouriteService.delete(id);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Filters not found");
+        }
     }
 }

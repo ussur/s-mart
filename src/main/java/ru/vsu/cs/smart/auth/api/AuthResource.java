@@ -15,6 +15,7 @@ import ru.vsu.cs.smart.auth.requests.Credentials;
 import ru.vsu.cs.smart.common.exception.ResourceNotFoundException;
 import ru.vsu.cs.smart.db.model.User;
 import ru.vsu.cs.smart.db.service.UserService;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -52,11 +53,12 @@ public class AuthResource {
                 userService.findByUsername(credentials.getUsername()));
         if (!user.isPresent() || !Objects.equals(user.get().getPassword(),
                 credentials.getPassword())) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("Invalid username or password");
         }
         return user.get();
     }
 
+    @ApiIgnore
     @ApiOperation(
             value = "Закрывает сессию пользователя",
             httpMethod = "POST"
