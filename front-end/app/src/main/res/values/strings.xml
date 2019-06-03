@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">s-mart</string>
+    <string name="title_home">Главная</string>
+    <string name="title_filters">Сохраненные фильтры</string>
+    <string name="title_favorites">Избранное</string>
+    <string name="title_profile">Профиль</string>
+    <string name="price">Цена:</string>
+    <string name="textFrom">От:</string>
+    <string name="textBefore">До:</string>
+    <string name="category">Категория:</string>
+    <string name="rating">Рейтинг:</string>
+    <string name="text">Поиск товаров</string>
+    <string name="search_hint">Search the records</string>
+    <string name="search">Искать</string>
+    <string-array name="categoryList">
+        <item>Электроника</item>
+        <item>Бытовая техника</item>
+        <item>Детские товары</item>
+        <item>Красота</item>
+        <item>Мужская одежда</item>
+        <item>Женская одежда</item>
+        <item>Компьютерная техника</item>
+        <item>Ремонт и отделка</item>
+        <item>Аксессуары</item>
+        <item>Канцелярские товары</item>
+        <item>Дом и сад</item>
+        <item>Смарфоны и связь</item>
+    </string-array>
+    <string-array name="ratingList">
+        <item>Высокий</item>
+        <item>Средний</item>
+        <item>Низкий</item>
+    </string-array>
+
+</resources>
