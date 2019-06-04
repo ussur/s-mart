@@ -26,6 +26,10 @@ S-mart - это мобильное приложение  для платформ
 ## Демонстрационное видео
 [Ссылка на видео](https://drive.google.com/file/d/1O-rFHnFHIqnkch5x1efmV3M_7kyQhIBY/view)
 
+## Презентация
+[Презентация pptx](./s-smart.pptx) (не завершена)
+
+
 ## Ссылки
 [Trello](https://trello.com/b/axC43PUO/s-mart)<br>
 [RealTimeBoard](https://realtimeboard.com/app/board/o9J_kxgTYOc=/)
